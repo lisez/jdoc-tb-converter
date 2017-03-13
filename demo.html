@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh_TW">
+<head>
+	<meta charset="UTF-8">
+	<title>Plain Text Table Converter</title>
+	<style>
+		table, td, tr{
+			border: 1px solid;
+		}
+	</style>
+</head>
+<body>
+	<h1>司法文書簡易表格轉換器</h1>
+	<h2>輸入文字</h2>
+	<textarea name="inputarea" id="inputarea" cols="30" rows="10"></textarea>
+	<h2>輸出格式</h2>
+	<button onclick="gettable()">輸出HTML表格</button>
+	<button onclick="getjson()">輸出JSON</button>
+	<h2>顯示區</h2>
+	<div id="displayArea"></div>
+	<script src="JDocTbConverter.js"></script>
+	<script>
+	function gettable(){
+		var theText = new JDocTbConverter(document.getElementById('inputarea').value);
+		document.getElementById('displayArea').innerHTML='';
+		document.getElementById('displayArea').appendChild(theText.getDOM());
+	}
+	function getjson(){
+		var theText = new JDocTbConverter(document.getElementById('inputarea').value),
+			newTA	= document.createElement('textarea'),
+			json	= document.createTextNode(theText.getJSON());
+		newTA.appendChild(json);
+		document.getElementById('displayArea').innerHTML='';
+		document.getElementById('displayArea').appendChild(newTA);
+	}
+	</script>
+</body>
+</html>
